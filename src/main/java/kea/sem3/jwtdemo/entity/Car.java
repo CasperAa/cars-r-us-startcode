@@ -1,5 +1,6 @@
 package kea.sem3.jwtdemo.entity;
 
+import kea.sem3.jwtdemo.dto.CarRequest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,13 @@ public class Car {
         this.model = model;
         this.pricePrDay = pricePrDay;
         this.bestDiscount = discount;
+    }
+
+    public Car(CarRequest body) {
+        this.brand = body.getBrand();
+        this.model = body.getModel();
+        this.pricePrDay = body.getPricePrDay();
+        this.bestDiscount = body.getBestDiscount();
     }
 
     @Enumerated(EnumType.STRING)

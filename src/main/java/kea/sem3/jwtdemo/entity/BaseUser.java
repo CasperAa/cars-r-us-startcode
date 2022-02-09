@@ -3,9 +3,12 @@ package kea.sem3.jwtdemo.entity;
 import kea.sem3.jwtdemo.security.UserWithPassword;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,5 +68,11 @@ public class BaseUser implements UserWithPassword {
    public void addRole(Role role){
       roles.add(role);
    }
+
+   @CreationTimestamp
+   LocalDateTime created;
+
+   @UpdateTimestamp
+   LocalDateTime edited;
 
 }
