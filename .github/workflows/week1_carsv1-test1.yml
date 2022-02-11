@@ -3,7 +3,7 @@ name: Build and deploy JAR app to Azure Web App - Carsv1-test1
 
 #on - The event which triggers the code to run
 #If someone pushes to the branch called "Week1"
-#It's posible to add more brancheh
+#It's posible to add more branches
 on:
   push:
     #branches is a list
@@ -13,7 +13,9 @@ on:
   workflow_dispatch:
 
 jobs:
+
   build:
+  #CI
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +34,10 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
+          retention-days: 1
 
   deploy:
+  #CD
     runs-on: ubuntu-latest
     #needs - This makes sure that the other job (build) has completed before this job (deploy) can execute
     needs: build
@@ -50,6 +54,8 @@ jobs:
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+
+        #Info to communicate with Azure
         with:
           app-name: 'Carsv1-test1'
           slot-name: 'Production'
