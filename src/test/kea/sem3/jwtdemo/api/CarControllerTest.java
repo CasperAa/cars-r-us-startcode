@@ -104,7 +104,7 @@ class CarControllerTest {
 
     }
 
-    // @Test
+    @Test
     public void editCar() throws Exception {
         //New price and discount for the ford
         CarRequest carToEdit = new CarRequest(CarBrand.FORD, "Focus", 500, 20);
@@ -119,7 +119,7 @@ class CarControllerTest {
         assertEquals(20, editedCarFromDB.getBestDiscount());
     }
 
-
+    @Test
     void deleteCar() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/cars/" + carFordId))
                 .andExpect(status().isOk());

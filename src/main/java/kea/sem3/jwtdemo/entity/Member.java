@@ -39,7 +39,7 @@ public class Member extends BaseUser {
     boolean isApproved;
 
     //Number between 0 and 10, ranking the customer
-    byte ranking;
+    Integer ranking;
 
     public Member(String username, String email, String password, String firstName, String lastName, String street, String city, String zip) {
         super(username, email, password);

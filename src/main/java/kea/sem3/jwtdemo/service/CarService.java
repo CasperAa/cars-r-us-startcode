@@ -31,11 +31,20 @@ public class CarService {
         return new CarResponse(carNew, true);
     }
 
+    //Added for week 2 handin
     public CarResponse editCar(CarRequest body,int id){
-        return null;
+        Car car = carRepository.findById(id).orElseThrow(()-> new Client4xxException("No car with tis id exist"));
+        car.setPricePrDay(body.getPricePrDay());
+        car.setBestDiscount(body.getBestDiscount());
+        final Car editedCar = carRepository.save(car);
+        return new CarResponse(editedCar, true);
     }
 
+    //Added for week 2 handin
     public void deleteCar(int id) {
+        Car car = carRepository.findById(id).orElseThrow(()-> new Client4xxException("No car with tis id exist"));
+        carRepository.delete(car);
+
     }
 
 

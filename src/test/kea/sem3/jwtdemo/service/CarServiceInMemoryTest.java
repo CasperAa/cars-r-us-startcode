@@ -1,5 +1,6 @@
 package kea.sem3.jwtdemo.service;
 
+import kea.sem3.jwtdemo.dto.CarRequest;
 import kea.sem3.jwtdemo.dto.CarResponse;
 import kea.sem3.jwtdemo.entity.Car;
 import kea.sem3.jwtdemo.entity.CarBrand;
@@ -48,15 +49,30 @@ class CarServiceInMemoryTest {
     }
 
     @Test
-    void getCar() {
+    //Added for week 2 handin
+    void getCar() throws Exception {
+        CarResponse carResponse = carService.getCar(1,false);
+        CarBrand brand = CarBrand.VOLVO;
+        assertEquals(brand, carResponse.getBrand());
     }
 
     @Test
+    //Added for week 2 handin
     void addCar() {
+        Car newCar = new Car(CarBrand.TOYOTA,"CH-R",100,25);
+        CarResponse carResponse = carService.addCar(new CarRequest(newCar.getBrand(),newCar.getModel(),newCar.getPricePrDay(),newCar.getBestDiscount()));
+        assertEquals(3,carResponse.getId());
+        assertEquals("CH-R",carResponse.getModel());
     }
 
     @Test
-    void deleteCar() {
+    //Added for week 2 handin
+    void deleteCar() throws Exception {
+        carRepository.deleteById(1);
+        List<CarResponse> carResponses = carService.getCars();
+        assertEquals(1,carResponses.size());
+
     }
+
 }
 
