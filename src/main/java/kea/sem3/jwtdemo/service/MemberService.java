@@ -1,12 +1,16 @@
 package kea.sem3.jwtdemo.service;
 
+import kea.sem3.jwtdemo.dto.MemberRequest;
 import kea.sem3.jwtdemo.dto.MemberResponse;
 import kea.sem3.jwtdemo.entity.Member;
+import kea.sem3.jwtdemo.entity.Role;
 import kea.sem3.jwtdemo.error.Client4xxException;
 import kea.sem3.jwtdemo.repositories.MemberRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberService {
@@ -19,17 +23,29 @@ public class MemberService {
 
     public List<MemberResponse> getMembers() {
         List<Member> memberList = memberRepository.findAll();
-        return MemberResponse.getMembersFromEntities(memberList);
+        return memberList.stream().map(member -> new MemberResponse(member, false)).collect(Collectors.toList());
     }
 
-    public MemberResponse getMember(String username, boolean all) {
-        Member member = memberRepository.findById(username).orElseThrow(()->new Client4xxException("Member not found"));
+    public MemberResponse getMemberFromUsername(String username) {
+        Member member = memberRepository.findById(username).orElseThrow(()->new Client4xxException("User not found", HttpStatus.NOT_FOUND));
         return new MemberResponse(member, false);
+    }
+
+    public MemberResponse addMember(MemberRequest body){
+        if(memberRepository.existsById(body.getUsername())){
+            throw new Client4xxException("Provided user name is taken");
+        }
+
+        Member member = new Member(body);
+        member.addRole((Role.USER));
+        member = memberRepository.save(member);
+        return new MemberResponse(member.getUsername(), member.getCreated(), member.getRoles());
+
     }
 
     //editMembers
 
-    //addMember
+
 
     //Delete
 }
