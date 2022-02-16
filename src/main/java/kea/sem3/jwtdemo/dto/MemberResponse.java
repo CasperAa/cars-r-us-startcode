@@ -38,9 +38,11 @@ public class MemberResponse {
     LocalDateTime updated;
 
     Boolean isApproved; //Boolean is an object - boolean is a primitive type
+                        //Cannot be null
 
     //Number between 0 and 10, ranking the customer
-    Byte ranking; //Byte is an object - byte is a primitive type
+    Byte ranking;   //Byte is an object - byte is a primitive type
+                    //Cannot be null
 
     //Meant to be used as response when new users are created
     public MemberResponse(String username, LocalDateTime created, List<Role> roleList){

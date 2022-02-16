@@ -10,6 +10,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
+
 @Controller
 @Profile("!test")
 public class MakeTestData implements ApplicationRunner {
@@ -27,7 +29,7 @@ public class MakeTestData implements ApplicationRunner {
         this.reservationRepository = reservationRepository;
     }
 
-    public  void makePlainUsers(){
+    public  void makeData(){
         BaseUser user = new BaseUser("user", "user@a.dk", "test12");
         user.addRole(Role.USER);
         BaseUser admin = new BaseUser("admin", "admin@a.dk", "test12");
@@ -41,17 +43,29 @@ public class MakeTestData implements ApplicationRunner {
         userRepository.save(both);
 
 
-        memberRepository.save(new Member("KW","kw@a.dk","test12","Kurt","Wonnegut","Lyngbyvje 34","Lyngby","2800"));
-        memberRepository.save(new Member("HW","hw@a.dk","test12","Hanne","Wonnegut","Lyngbyvje 34","Lyngby","2800"));
+        Member member1 = memberRepository.save(new Member("KW","kw@a.dk","test12","Kurt","Wonnegut","Lyngbyvje 34","Lyngby","2800"));
+        Member member2 = memberRepository.save(new Member("HW","hw@a.dk","test12","Hanne","Wonnegut","Lyngbyvje 34","Lyngby","2800"));
 
-        carRepository.save(new Car(CarBrand.VOLVO, "C40", 560,10));
+        Car carVolvo = carRepository.save(new Car(CarBrand.VOLVO, "C40", 560,10));
         carRepository.save(new Car(CarBrand.VOLVO, "V70", 500,10));
         carRepository.save(new Car(CarBrand.VOLVO, "V49", 400,10));
         carRepository.save(new Car(CarBrand.SUZUKI, "Vitara", 500,14));
         carRepository.save(new Car(CarBrand.SUZUKI, "Vitara", 500,14));
         carRepository.save(new Car(CarBrand.SUZUKI, "S-Cross", 500,14));
 
-        //reservationRepository.save(new Reservation();
+        //Make reservation data
+        Reservation res1 = new Reservation(LocalDate.of(2022, 3,1), carVolvo, member1);
+        reservationRepository.save(res1);
+
+        Reservation res = reservationRepository.findReservationByReservedCar_IdAndRentalDate(
+                carVolvo.getId(),(LocalDate.of(2022,3,1)));
+        if(res == null){
+            Reservation res2 = new Reservation(LocalDate.of(2022, 3,1), carVolvo, member2);
+            reservationRepository.save(res2);
+        } else {
+            System.out.println("Car is already reserved");
+        }
+
 
         System.out.println("########################################################################################");
         System.out.println("########################################################################################");
@@ -70,8 +84,7 @@ public class MakeTestData implements ApplicationRunner {
 
         userRepository.deleteAll();
 
-        makePlainUsers();
-
+        makeData();
 
     }
 }

@@ -39,6 +39,13 @@ public class Car {
         this.pricePrDay = body.getPricePrDay();
         this.bestDiscount = body.getBestDiscount();
     }
+    //Add fetch = FetchType.EAGER to mappedby, if problems related to transactional appear.
+    @OneToMany(mappedBy = "reservedCar")
+    private Set <Reservation> reservations = new HashSet<>();
+
+    public void addReservation (Reservation newReservation){
+        reservations.add(newReservation);
+    }
 
     @Enumerated(EnumType.STRING)
     CarBrand brand;
@@ -56,14 +63,6 @@ public class Car {
 
     @UpdateTimestamp
     LocalDateTime edited;
-
-    /*
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="car_id", referencedColumnName = "id")
-    private Car car;
-
-     */
 
 
 }

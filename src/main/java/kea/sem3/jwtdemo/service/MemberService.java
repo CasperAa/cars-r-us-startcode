@@ -2,6 +2,7 @@ package kea.sem3.jwtdemo.service;
 
 import kea.sem3.jwtdemo.dto.MemberRequest;
 import kea.sem3.jwtdemo.dto.MemberResponse;
+import kea.sem3.jwtdemo.entity.Car;
 import kea.sem3.jwtdemo.entity.Member;
 import kea.sem3.jwtdemo.entity.Role;
 import kea.sem3.jwtdemo.error.Client4xxException;
@@ -31,6 +32,8 @@ public class MemberService {
         return new MemberResponse(member, false);
     }
 
+    //fix add member
+    /*
     public MemberResponse addMember(MemberRequest body){
         if(memberRepository.existsById(body.getUsername())){
             throw new Client4xxException("Provided user name is taken");
@@ -42,10 +45,9 @@ public class MemberService {
         return new MemberResponse(member.getUsername(), member.getCreated(), member.getRoles());
 
     }
+    */
 
     //editMembers
 
-
-
-    //Delete
+    //deleteMembers
 }

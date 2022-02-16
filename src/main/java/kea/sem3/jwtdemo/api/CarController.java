@@ -37,11 +37,17 @@ public class CarController {
         return carService.editCar(body, id);
     }
 
+    @PatchMapping("/{id}/{newPrice}")
+    public void editPrice(@PathVariable int id, @PathVariable double newPrice) {
+        carService.updatePrice(id, newPrice);
+    }
+
     //Added for week 2 handin
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable int id){
         carService.deleteCar(id);
     }
+
 
 }
 

@@ -33,11 +33,19 @@ public class CarService {
 
     //Added for week 2 handin
     public CarResponse editCar(CarRequest body,int id){
-        Car car = carRepository.findById(id).orElseThrow(()-> new Client4xxException("No car with tis id exist"));
+        Car car = carRepository.findById(id).orElseThrow(()-> new Client4xxException("No car with this id exist"));
         car.setPricePrDay(body.getPricePrDay());
+        car.setBrand(body.getBrand());
+        car.setModel(body.getModel());
         car.setBestDiscount(body.getBestDiscount());
-        final Car editedCar = carRepository.save(car);
-        return new CarResponse(editedCar, true);
+        return new CarResponse(carRepository.save(car), true);
+    }
+
+    //Service method for PATCH
+    public void updatePrice(int carId, double newPricePrDay){
+        Car car = carRepository.findById(carId).orElseThrow(()-> new Client4xxException("No car with this id exist"));
+        car.setPricePrDay(newPricePrDay);
+        carRepository.save(car);
     }
 
     //Added for week 2 handin
