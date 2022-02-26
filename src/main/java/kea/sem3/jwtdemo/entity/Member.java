@@ -59,6 +59,9 @@ public class Member extends BaseUser {
     @OneToMany(mappedBy = "reservedTo")
     private Set <Reservation> reservations = new HashSet<>();
 
+    public Member() {
+    }
+
     public void addReservation (Reservation newReservation){
         reservations.add(newReservation);
     }
