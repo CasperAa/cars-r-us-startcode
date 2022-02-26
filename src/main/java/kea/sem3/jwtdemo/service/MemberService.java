@@ -32,22 +32,21 @@ public class MemberService {
         return new MemberResponse(member, false);
     }
 
-    //fix add member
-    /*
-    public MemberResponse addMember(MemberRequest body){
-        if(memberRepository.existsById(body.getUsername())){
-            throw new Client4xxException("Provided user name is taken");
-        }
-
-        Member member = new Member(body);
-        member.addRole((Role.USER));
-        member = memberRepository.save(member);
-        return new MemberResponse(member.getUsername(), member.getCreated(), member.getRoles());
-
+    public MemberResponse addMember(MemberRequest body) {
+        Member newMember = memberRepository.save(new Member (body));
+        return new MemberResponse(newMember, false);
     }
-    */
 
-    //editMembers
 
-    //deleteMembers
+
+    public MemberResponse editMember(MemberRequest body, String username) {
+        Member member = memberRepository.findById(username).orElseThrow(()->new Client4xxException("Member not found"));
+        member.setPassword((body.getPassword()));
+        return new MemberResponse(memberRepository.save(member), false);
+    }
+
+    //Delete
+    public void deleteMember(String username) {
+        memberRepository.delete(memberRepository.findById(username).orElseThrow(()->new Client4xxException("Member not found")));
+    }
 }

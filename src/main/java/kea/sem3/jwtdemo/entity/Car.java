@@ -23,6 +23,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+    //Fordi det er en Entitiy classe, skal den have en @entity notation, id og en tom public constructor metode.
     public Car() {
     }
 
@@ -40,7 +41,7 @@ public class Car {
         this.bestDiscount = body.getBestDiscount();
     }
     //Add fetch = FetchType.EAGER to mappedby, if problems related to transactional appear.
-    @OneToMany(mappedBy = "reservedCar")
+    @OneToMany(mappedBy = "reservedCar", fetch = FetchType.EAGER)
     private Set <Reservation> reservations = new HashSet<>();
 
     public void addReservation (Reservation newReservation){

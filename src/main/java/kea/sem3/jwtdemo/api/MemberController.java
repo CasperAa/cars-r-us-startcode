@@ -36,7 +36,15 @@ public class MemberController {
                 //memberService.addMember(body);
     }
 
+    @PutMapping("/{username}")
+    public MemberResponse editMember(@RequestBody MemberRequest body, @PathVariable String username){
+        return memberService.editMember(body, username);
+    }
 
+    @DeleteMapping("/{username")
+    public void deleteMember(@PathVariable String username){
+        memberService.deleteMember(username);
+    }
 
 
 

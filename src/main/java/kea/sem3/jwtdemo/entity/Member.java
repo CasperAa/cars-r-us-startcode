@@ -17,7 +17,6 @@ import java.util.Set;
 public class Member extends BaseUser {
 
     //Make sure you understand why there is no @Id annotation in this class, and the SINGLE table created in the database
-
     @Column(length = 40)
     String firstName;
 
@@ -33,9 +32,11 @@ public class Member extends BaseUser {
     @Column(length = 4)
     String zip;
 
+    //Saves the time the entity is added to the database
     @CreationTimestamp
     LocalDateTime created;
 
+    //Saves the time the entity is edited in the database
     @UpdateTimestamp
     LocalDateTime edited;
 
@@ -62,6 +63,6 @@ public class Member extends BaseUser {
         reservations.add(newReservation);
     }
 
-    public Member() {}
+    public Member(MemberRequest body) {}
 
 }
