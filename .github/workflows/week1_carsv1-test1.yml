@@ -8,7 +8,7 @@ on:
   push:
     #branches is a list
     branches:
-      - week1
+      - main
       #another branch
   workflow_dispatch:
 
