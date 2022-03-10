@@ -6,7 +6,7 @@ import kea.sem3.jwtdemo.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("api/cars")
 public class CarController {
