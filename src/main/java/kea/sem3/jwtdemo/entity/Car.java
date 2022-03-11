@@ -27,7 +27,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(CarBrand brand, String model, double pricePrDay, double discount) {
+    public Car(String brand, String model, double pricePrDay, double discount) {
         this.brand = brand;
         this.model = model;
         this.pricePrDay = pricePrDay;
@@ -48,8 +48,7 @@ public class Car {
         reservations.add(newReservation);
     }
 
-    @Enumerated(EnumType.STRING)
-    CarBrand brand;
+    String brand;
 
     @Column(length = 60)
     String model;

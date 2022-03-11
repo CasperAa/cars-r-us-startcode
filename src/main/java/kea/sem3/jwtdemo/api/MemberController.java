@@ -41,7 +41,7 @@ public class MemberController {
         return memberService.editMember(body, username);
     }
 
-    @DeleteMapping("/{username")
+    @DeleteMapping("/{username}")
     public void deleteMember(@PathVariable String username){
         memberService.deleteMember(username);
     }

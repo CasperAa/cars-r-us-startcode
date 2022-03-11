@@ -3,13 +3,10 @@ package kea.sem3.jwtdemo.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import kea.sem3.jwtdemo.entity.Car;
-import kea.sem3.jwtdemo.entity.CarBrand;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +17,7 @@ import java.util.stream.Collectors;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarResponse {
     int id;
-    @Enumerated(EnumType.STRING)
-    //Change CarBrand into a String if you are not using an enum for this field
-    CarBrand brand;
+    String brand;
     String model;
     double pricePrDay;
     Double bestDiscount;

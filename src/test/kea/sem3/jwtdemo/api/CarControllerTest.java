@@ -2,9 +2,7 @@ package kea.sem3.jwtdemo.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kea.sem3.jwtdemo.dto.CarRequest;
-import kea.sem3.jwtdemo.dto.CarResponse;
 import kea.sem3.jwtdemo.entity.Car;
-import kea.sem3.jwtdemo.entity.CarBrand;
 import kea.sem3.jwtdemo.repositories.CarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -45,8 +42,8 @@ class CarControllerTest {
 
     @BeforeEach
     public void setup() {
-        carFordId = carRepository.save(new Car(CarBrand.FORD, "Focus", 400, 10)).getId();
-        carSuzukiId = carRepository.save(new Car(CarBrand.SUZUKI, "Vitara", 500, 14)).getId();
+        carFordId = carRepository.save(new Car("WW", "Focus", 400, 10)).getId();
+        carSuzukiId = carRepository.save(new Car("Suzuki", "Vitara", 500, 14)).getId();
     }
 
     @Test
@@ -89,7 +86,7 @@ class CarControllerTest {
 
     @Test
     public void testAddCar() throws Exception {
-        CarRequest newCar = new CarRequest(CarBrand.WW, "Polo", 200, 10);
+        CarRequest newCar = new CarRequest("WW", "Polo", 200, 10);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/cars")
                         .contentType("application/json")
                         .accept("application/json")
@@ -107,7 +104,7 @@ class CarControllerTest {
     @Test
     public void editCar() throws Exception {
         //New price and discount for the ford
-        CarRequest carToEdit = new CarRequest(CarBrand.FORD, "Focus", 500, 20);
+        CarRequest carToEdit = new CarRequest("Ford", "Focus", 500, 20);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/cars/" + carFordId)
                         .contentType("application/json")

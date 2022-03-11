@@ -3,7 +3,6 @@ package kea.sem3.jwtdemo.service;
 import kea.sem3.jwtdemo.dto.CarRequest;
 import kea.sem3.jwtdemo.dto.CarResponse;
 import kea.sem3.jwtdemo.entity.Car;
-import kea.sem3.jwtdemo.entity.CarBrand;
 import kea.sem3.jwtdemo.repositories.CarRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +31,8 @@ class CarServiceInMemoryTest {
     static void setup(@Autowired CarRepository carRepository){
         //carService = new CarService(carRepository);
         carRepository.deleteAll();
-        car1Id = carRepository.save(new Car(CarBrand.VOLVO, "C40", 560,10)).getId();
-        car2Id = carRepository.save(new Car(CarBrand.WW, "Up", 300,10)).getId();
+        car1Id = carRepository.save(new Car("Volvo", "C40", 560,10)).getId();
+        car2Id = carRepository.save(new Car("WW", "Up", 300,10)).getId();
     }
     @BeforeEach
     void setupService(){
@@ -52,14 +51,14 @@ class CarServiceInMemoryTest {
     //Added for week 2 handin
     void getCar() throws Exception {
         CarResponse carResponse = carService.getCar(1,false);
-        CarBrand brand = CarBrand.VOLVO;
+        String brand = "Volvo";
         assertEquals(brand, carResponse.getBrand());
     }
 
     @Test
     //Added for week 2 handin
     void addCar() {
-        Car newCar = new Car(CarBrand.TOYOTA,"CH-R",100,25);
+        Car newCar = new Car("Toyota","CH-R",100,25);
         CarResponse carResponse = carService.addCar(new CarRequest(newCar.getBrand(),newCar.getModel(),newCar.getPricePrDay(),newCar.getBestDiscount()));
         assertEquals(3,carResponse.getId());
         assertEquals("CH-R",carResponse.getModel());

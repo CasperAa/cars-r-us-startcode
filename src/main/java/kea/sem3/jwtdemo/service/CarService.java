@@ -27,6 +27,11 @@ public class CarService {
 
     }
     public CarResponse addCar(CarRequest body){
+        Car car = new Car();
+        car.setBrand(body.getBrand());
+        car.setModel(body.getModel());
+        car.setPricePrDay(body.getPricePrDay());
+        car.setBestDiscount(body.getBestDiscount());
         Car carNew = carRepository.save(new Car (body));
         return new CarResponse(carNew, true);
     }
